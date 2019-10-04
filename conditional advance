@@ -1,0 +1,27 @@
+for num in range(1, 100):
+  if num <=99:
+    print("Roles will remain the same")
+    continue
+ //"break aborts the loop so the branch is skipped and we could skip the repeated branch of roles changing//
+for num in range(1, 100):
+  if num == 100:
+    print("Roles have switched")
+    break
+    
+    
+    that could all be bad 
+    
+ for num in range(1,100):
+  if num <=99:
+    print("Roles will remain the same")
+  else: 
+    print("Roles have switched") 
+  
+  
+//i think this one is IT// 
+import random
+randomNumber = random.randint(1, 100)
+  if randomNumber <=99:
+    print("Roles will remain the same.")
+   else:
+    print("Roles have switched") 
