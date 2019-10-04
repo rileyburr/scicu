@@ -8,7 +8,7 @@ class Offer(Page):
 
     def is_displayed(self):
         return self.player.id_in_group == 1
-///somehow reverse roles?///
+#somehow reverse roles?#
 class ReverseOffer(Page):
     form_model = 'group'
     form_fields = ['kept']
