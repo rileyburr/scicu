@@ -1,0 +1,190 @@
+from .. import models
+import otree.api
+from otree.api import Currency as c, currency_range
+
+#introduction page#
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}Introduction{% endblock %}
+
+{% block content %}
+{% include Constants.instructions_template %}
+{% next_button %}
+{% endblock %}
+
+#IRB consent form#
+{% load otree staticfiles %}
+
+<div class="instructions well well-lg">
+
+    <h3 class="panel-sub-heading">
+        Insert IRB consent form here? 
+    </h3>
+
+#holt laury instructions#
+{% load otree staticfiles %}
+
+<div class="instructions well well-lg">
+
+    <h3 class="panel-sub-heading">
+        Part 1 Instructions
+    </h3>
+
+    <p>
+        You will be asked to describe your preferences between choices now and in the future
+        **ask Dr. Hample best way to describe holt laury**
+    </p>
+    <p>
+        There is {{ Constants.endowment }} to split. Player 1 will
+        decide how much she or he will retain. Then the rest will go to
+        Player 2.
+    </p>
+
+</div>
+
+#DG instructions#
+{% load otree staticfiles %}
+
+<div class="instructions well well-lg">
+
+    <h3 class="panel-sub-heading">
+        Part 2 Instructions
+    </h3>
+
+    <p>
+        You will be paired randomly and anonymously with another participant.
+        In this study, one of you will be Player 1 and the other
+        Player 2. Prior to making a decision, you will learn your role,
+        which will be randomly assigned.
+    </p>
+    <p>
+        There is {{ Constants.endowment }} to split. Player 1 will
+        decide how much she or he will retain. Then the rest will go to
+        Player 2.
+    </p>
+
+</div>
+
+#setting groups some kind of lobby?#
+class Constants(BaseConstants):
+    players_per_group = 2
+    endowment = c(100)
+
+#offer#
+{{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}Your Decision in Round {{ group.round_number }} {% endblock %}
+
+{% block content %}
+<p>
+You are <strong>Player 1</strong>. Now please decide how much you will keep for yourself.
+</p>
+
+{% formfield group.kept %}
+
+{% next_button %}
+
+    {% include Constants.instructions_template %}
+
+{% endblock %}
+
+#results# 
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Result in Round {{ group.round_number }}
+{% endblock %}
+
+{% block content %}
+    <p>
+
+        {% if player.id_in_group == 1 %}
+            You decided to keep <strong>{{ group.kept }}</strong> for yourself.
+        {% else %}
+            Player 1 has made his decision, and you will be told the result at the end of the experiment >.
+        {% endif %}
+
+        {% next_button %}
+    </p>
+    {% include Constants.instructions_template %}
+{% endblock %}
+
+import random
+randomNumber = random.randomint(1,100)
+  if randomNumber<=99:
+    repeat = 'Yes'
+  if randomNumber=100:
+    repeat = 'No'
+ 
+if repeat = 'No':
+  again-num = 1 
+  again = "Yes"
+  
+while repeat = 'Yes'
+  #offer#
+{{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}Your Decision in Round {{ group.round_number }} {% endblock %}
+
+{% block content %}
+<p>
+You are <strong>Player 1</strong>. Now please decide how much you will keep for yourself.
+</p>
+
+{% formfield group.kept %}
+
+{% next_button %}
+
+    {% include Constants.instructions_template %}
+
+{% endblock %}
+
+#results# 
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Result in Round {{ group.round_number }}
+{% endblock %}
+
+{% block content %}
+    <p>
+
+        {% if player.id_in_group == 1 %}
+            You decided to keep <strong>{{ group.kept }}</strong> for yourself.
+        {% else %}
+            Player 1 has made his decision, and you will be told the result at the end of the experiment >.
+        {% endif %}
+
+        {% next_button %}
+    </p>
+    {% include Constants.instructions_template %}
+{% endblock %}
+
+import random
+randomNumber = random.randomint(1,100)
+  if randomNumber<=99:
+    repeat = 'Yes'
+  if randomNumber=100:
+    repeat = 'No'
+ 
+if repeat = 'No':
+  again-num = 1 
+  again = "Yes"
+
+while repeat = 'No':
+
+#Loop 2#
+class Subsession(BaseSubsession):
+    def creating_session(self):
+        if self.round_number == 2:
+self.get_group_matrix()
+            self.group_randomly(fixed_id_in_group=True)
+            matrix = self.get_group_matrix()
+            for row in matrix:
+                row.reverse()
+            self.set_group_matrix(matrix)
