@@ -134,23 +134,23 @@ if repeat = 'No':
   
 while repeat = 'Yes'
   #offer#
-{{% extends "global/Page.html" %}
-{% load otree %}
+ {{% extends "global/Page.html" %}
+ {% load otree %}
 
-{% block title %}Your Decision in Round {{ group.round_number }} {% endblock %}
+ {% block title %}Your Decision in Round {{ group.round_number }} {% endblock %}
 
-{% block content %}
-<p>
-You are <strong>Player 1</strong>. Now please decide how much you will keep for yourself.
-</p>
+ {% block content %}
+ <p>
+    You are <strong>Player 1</strong>. Now please decide how much you will keep for yourself.
+ </p>
 
-{% formfield group.kept %}
+ {% formfield group.kept %}
 
-{% next_button %}
+ {% next_button %}
 
-    {% include Constants.instructions_template %}
+ {% include Constants.instructions_template %}
 
-{% endblock %}
+ {% endblock %}
 
 #results# 
 {% extends "global/Page.html" %}
@@ -174,17 +174,6 @@ You are <strong>Player 1</strong>. Now please decide how much you will keep for 
     {% include Constants.instructions_template %}
 {% endblock %}
 
-import random
-randomNumber = random.randomint(1,100)
-  if randomNumber<=99:
-    repeat = 'Yes'
-  if randomNumber=100:
-    repeat = 'No'
- 
-if repeat = 'No':
-  again-num = 1 
-  again = "Yes"
-
 while repeat = 'No':
 
 #Loop 2#
@@ -197,3 +186,188 @@ self.get_group_matrix()
             for row in matrix:
                 row.reverse()
             self.set_group_matrix(matrix)
+
+
+  #offer#
+    {{% extends "global/Page.html" %}
+    {% load otree %}
+
+    {% block title %}Your Decision in Round {{ group.round_number }} {% endblock %}
+
+    {% block content %}
+    <p>
+    You are <strong>Player 1</strong>. Now please decide how much you will keep for yourself.
+    </p>
+
+    {% formfield group.kept %}
+
+    {% next_button %}
+
+     {% include Constants.instructions_template %}
+
+    {% endblock %}
+
+#results# 
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Result in Round {{ group.round_number }}
+{% endblock %}
+
+{% block content %}
+    <p>
+
+        {% if player.id_in_group == 1 %}
+            You decided to keep <strong>{{ group.kept }}</strong> for yourself.
+        {% else %}
+            Player 1 has made his decision, and you will be told the result at the end of the experiment >.
+        {% endif %}
+
+        {% next_button %}
+    </p>
+    {% include Constants.instructions_template %}
+{% endblock %}
+
+#embed youtube video (literature shows that video simulates longer time passage than block of words but we need to find the videos#
+
+again_num == again_num + 1
+
+if again_num < 30 :
+    again  = "Yes"
+   else
+    again = "No"
+    
+while again = "Yes"
+      #offer#
+    {{% extends "global/Page.html" %}
+    {% load otree %}
+
+    {% block title %}Your Decision in Round {{ group.round_number }} {% endblock %}
+
+    {% block content %}
+    <p>
+    You are <strong>Player 1</strong>. Now please decide how much you will keep for yourself.
+    </p>
+
+    {% formfield group.kept %}
+
+    {% next_button %}
+
+     {% include Constants.instructions_template %}
+
+    {% endblock %}
+
+#results# 
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Result in Round {{ group.round_number }}
+{% endblock %}
+
+{% block content %}
+    <p>
+
+        {% if player.id_in_group == 1 %}
+            You decided to keep <strong>{{ group.kept }}</strong> for yourself.
+        {% else %}
+            Player 1 has made his decision, and you will be told the result at the end of the experiment >.
+        {% endif %}
+
+        {% next_button %}
+    </p>
+    {% include Constants.instructions_template %}
+{% endblock %}
+#embed another youtube video...should we find 30 different videos-literature doesnt have much in the way of protocol on this#
+while again = "No" 
+
+{% extends "../base/survey.html" %}
+
+{% block title %}Survey Complete{% end %}
+
+{% block body %}
+  <div class="col-lg-offset-2 col-lg-8">
+    <h2>Game Complete</h2>
+
+    <p>Thank you very much for your participation in the study, and for your completion of the survey.  The study is now complete.
+      You will now be asked to complete a post-study survey before receiving your payment for participation. 
+    </p>
+
+  </div>
+{% endblock %}
+
+
+  
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Survey
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        Please answer the following questions.
+    </p>
+
+from otree.api import (
+    models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
+    Currency as c, currency_range
+)
+
+
+
+class Constants(BaseConstants):
+    name_in_url = 'survey'
+    players_per_group = None
+    num_rounds = 1
+
+
+class Subsession(BaseSubsession):
+    pass
+
+
+class Group(BaseGroup):
+    pass
+
+
+class Player(BasePlayer):
+
+    age = models.IntegerField(
+        label='What is your age?',
+        min=13, max=125)
+
+    gender = models.StringField(
+        choices=[['Male', 'Male'], ['Female', 'Female']],
+        label='What is your gender?',
+        widget=widgets.RadioSelect)
+    
+    race = models.StringField(
+        choices=[['White', 'White'], ['Hispanic or Latino', 'Hispanic or Latino'], ['Black or African American', 'Black or African American'], ['American Indian or Alaska Native','American Indian or Alaska Native'], ['Asian', 'Asian'], ['Native Hawaiian or Other Pacific Islander', 'Native Hawaiian or Other Pacific Islander']],
+        label='What is your race?',
+        widget=widgets.RadioSelect)
+
+    <label class="col-form-label">
+    Rate how you felt about your partner in the study on a scale of 1-7.
+</label>
+
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Disliked</span>
+    </div>
+
+    <input type="range" name="pizza" min="1" max="7" step="1" class="form-control">
+
+    <div class="input-group-append">
+        <span class="input-group-text">Liked</span>
+    </div>
+</div>
+    {% formfields %}
+    
+
+    {% next_button %}
+
+{% endblock %}
+
